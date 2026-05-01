@@ -23,7 +23,7 @@
     .card {
       margin: 30px auto;
       padding: 20px;
-      max-width: 600px;
+      max-width: 650px;
       background: rgba(255,255,255,0.15);
       border-radius: 20px;
     }
@@ -48,9 +48,13 @@
     }
 
     img {
-      width: 180px;
+      width: 160px;
       border-radius: 10px;
       margin: 5px;
+    }
+
+    #gallery {
+      margin-top: 20px;
     }
   </style>
 </head>
@@ -89,6 +93,9 @@
     <canvas id="canvas" style="display:none;"></canvas>
   </div>
 
+  <!-- GALLERY -->
+  <div id="gallery"></div>
+
 </div>
 
 <script>
@@ -114,7 +121,7 @@ function openCamera() {
     });
 }
 
-/* CAPTURE PHOTO + SEND TO VERCEL */
+/* CAPTURE PHOTO + UPLOAD TO VERCEL API */
 function capture() {
   const video = document.getElementById("video");
   const canvas = document.getElementById("canvas");
@@ -131,9 +138,21 @@ function capture() {
     method: "POST",
     body: JSON.stringify({ image }),
     headers: { "Content-Type": "application/json" }
-  });
+  })
+  .then(res => res.json())
+  .then(data => {
+    alert("Photo uploaded!");
 
-  alert("Photo sent!");
+    // SHOW IMAGE ON PAGE
+    const img = document.createElement("img");
+    img.src = data.url;
+
+    document.getElementById("gallery").appendChild(img);
+  })
+  .catch(err => {
+    console.log(err);
+    alert("Upload failed");
+  });
 }
 </script>
 
