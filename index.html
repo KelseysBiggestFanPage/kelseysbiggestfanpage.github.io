@@ -2,157 +2,142 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+
+  <!-- TAB TITLE -->
   <title>Kelsey's Way! ❤️</title>
 
+  <!-- FAVICON -->
   <link rel="icon" type="image/png" href="Favicon.png">
 
   <style>
     body {
       margin: 0;
-      font-family: Arial;
-      background: linear-gradient(135deg, #ff4d6d, #ff9a9e);
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: linear-gradient(135deg, #ff4d6d, #ff9a9e, #fad0c4);
       color: white;
       text-align: center;
     }
 
+    .container {
+      padding: 40px 20px;
+    }
+
     h1 {
-      font-size: 50px;
-      margin-top: 30px;
+      font-size: 60px;
+      margin-bottom: 10px;
+      text-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    }
+
+    .subtitle {
+      font-size: 20px;
+      opacity: 0.9;
     }
 
     .card {
-      margin: 30px auto;
-      padding: 20px;
+      margin: 40px auto;
+      padding: 25px;
       max-width: 650px;
-      background: rgba(255,255,255,0.15);
+      background: rgba(255,255,255,0.1);
       border-radius: 20px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    }
+
+    .images {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+
+    .images img {
+      width: 130px;
+      height: 130px;
+      object-fit: cover;
+      border-radius: 15px;
+      transition: 0.3s;
+    }
+
+    .images img:hover {
+      transform: scale(1.1);
     }
 
     button {
-      padding: 15px;
+      padding: 15px 30px;
       font-size: 18px;
       border: none;
-      border-radius: 10px;
+      border-radius: 12px;
+      background: white;
+      color: #ff4d6d;
       cursor: pointer;
-      margin-top: 10px;
+      font-weight: bold;
+      transition: 0.3s;
     }
 
-    #videoBox, #cameraBox {
+    button:hover {
+      transform: scale(1.08);
+      background: #ffe6ea;
+    }
+
+    #video {
+      margin-top: 20px;
       display: none;
-      margin-top: 20px;
     }
 
-    video {
-      width: 300px;
-      border-radius: 10px;
+    iframe {
+      width: 100%;
+      height: 315px;
+      border-radius: 15px;
+      border: none;
     }
 
-    img {
-      width: 160px;
-      border-radius: 10px;
-      margin: 5px;
-    }
-
-    #gallery {
-      margin-top: 20px;
+    footer {
+      margin-top: 40px;
+      font-size: 12px;
+      opacity: 0.7;
     }
   </style>
 </head>
 
 <body>
 
-<h1>Welcome to Kelsey's Way Fan Page! ❤️</h1>
+  <div class="container">
+    <h1>Welcome to the Kelsey's Way Fan Page!</h1>
+    <p class="subtitle">The #1 place for fans 🔥</p>
 
-<div class="card">
+    <div class="card">
 
-  <!-- IMAGES -->
-  <img src="download.jpg">
-  <img src="download (1).jpg">
-  <img src="download (2).jpg">
+      <!-- IMAGES -->
+      <div class="images">
+        <img src="download.jpg" alt="Kelsey 1">
+        <img src="download (1).jpg" alt="Kelsey 2">
+        <img src="download (2).jpg" alt="Kelsey 3">
+      </div>
 
-  <br>
+      <!-- BUTTON -->
+      <button onclick="showVideo()">Kelsey's Way Edit!!!</button>
 
-  <!-- VIDEO BUTTON -->
-  <button onclick="showVideo()">Kelsey's Way Edit!!!</button>
+      <!-- VIDEO -->
+      <div id="video">
+        <iframe src="https://www.youtube.com/embed/f8Q3wP0SCqs"></iframe>
+      </div>
 
-  <div id="videoBox">
-    <iframe width="100%" height="300"
-      src="https://www.youtube.com/embed/f8Q3wP0SCqs">
-    </iframe>
+    </div>
 
-    <br>
-
-    <button onclick="openCamera()">Take Fan Photo 📸</button>
+    <footer>
+      This site logs visits for a school project.
+    </footer>
   </div>
 
-  <!-- CAMERA -->
-  <div id="cameraBox">
-    <video id="video" autoplay></video>
-    <br>
-    <button onclick="capture()">Capture Photo</button>
-    <canvas id="canvas" style="display:none;"></canvas>
-  </div>
+  <script>
+    function showVideo() {
+      document.getElementById("video").style.display = "block";
 
-  <!-- GALLERY -->
-  <div id="gallery"></div>
-
-</div>
-
-<script>
-let stream;
-
-/* SHOW VIDEO + LOG IP */
-function showVideo() {
-  document.getElementById("videoBox").style.display = "block";
-  fetch("/api/log");
-}
-
-/* OPEN CAMERA */
-function openCamera() {
-  document.getElementById("cameraBox").style.display = "block";
-
-  navigator.mediaDevices.getUserMedia({ video: true })
-    .then(s => {
-      stream = s;
-      document.getElementById("video").srcObject = stream;
-    })
-    .catch(() => {
-      alert("Camera permission denied");
-    });
-}
-
-/* CAPTURE PHOTO + UPLOAD TO VERCEL API */
-function capture() {
-  const video = document.getElementById("video");
-  const canvas = document.getElementById("canvas");
-
-  canvas.width = video.videoWidth;
-  canvas.height = video.videoHeight;
-
-  const ctx = canvas.getContext("2d");
-  ctx.drawImage(video, 0, 0);
-
-  const image = canvas.toDataURL("image/png");
-
-  fetch("/api/upload", {
-    method: "POST",
-    body: JSON.stringify({ image }),
-    headers: { "Content-Type": "application/json" }
-  })
-  .then(res => res.json())
-  .then(data => {
-    alert("Uploaded!");
-
-    const img = document.createElement("img");
-    img.src = data.url;
-    document.getElementById("gallery").appendChild(img);
-  })
-  .catch(err => {
-    console.log(err);
-    alert("Upload failed");
-  });
-}
-</script>
+      // logs IP in your backend
+      fetch('/api/log');
+    }
+  </script>
 
 </body>
 </html>
