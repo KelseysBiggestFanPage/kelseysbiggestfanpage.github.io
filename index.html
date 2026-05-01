@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Test Site</title>
+</head>
+<body>
+  <h1>Welcome</h1>
+  <button onclick="logVisit()">Click Me</button>
+
+  <script>
+    function logVisit() {
+      fetch('/api/log');
+    }
+  </script>
+</body>
+</html>
