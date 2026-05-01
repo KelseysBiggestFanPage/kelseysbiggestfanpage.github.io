@@ -141,12 +141,10 @@ function capture() {
   })
   .then(res => res.json())
   .then(data => {
-    alert("Photo uploaded!");
+    alert("Uploaded!");
 
-    // SHOW IMAGE ON PAGE
     const img = document.createElement("img");
     img.src = data.url;
-
     document.getElementById("gallery").appendChild(img);
   })
   .catch(err => {
