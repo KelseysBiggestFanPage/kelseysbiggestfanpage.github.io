@@ -1,16 +1,131 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Test Site</title>
+  <meta charset="UTF-8">
+  <title>Kelsey's Way Fan Page</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: linear-gradient(135deg, #ff4d6d, #ff9a9e, #fad0c4);
+      color: white;
+      text-align: center;
+    }
+
+    .container {
+      padding: 40px 20px;
+    }
+
+    h1 {
+      font-size: 60px;
+      margin-bottom: 10px;
+      text-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    }
+
+    .subtitle {
+      font-size: 20px;
+      opacity: 0.9;
+    }
+
+    .card {
+      margin: 40px auto;
+      padding: 25px;
+      max-width: 500px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 20px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    }
+
+    .images {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+
+    .images img {
+      width: 130px;
+      height: 130px;
+      object-fit: cover;
+      border-radius: 15px;
+      transition: 0.3s;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+
+    .images img:hover {
+      transform: scale(1.1);
+    }
+
+    button {
+      padding: 15px 30px;
+      font-size: 18px;
+      border: none;
+      border-radius: 12px;
+      background: white;
+      color: #ff4d6d;
+      cursor: pointer;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      transform: scale(1.08);
+      background: #ffe6ea;
+    }
+
+    #extra {
+      margin-top: 20px;
+      display: none;
+      font-size: 18px;
+    }
+
+    footer {
+      margin-top: 40px;
+      font-size: 12px;
+      opacity: 0.7;
+    }
+  </style>
 </head>
+
 <body>
-  <h1>Welcome</h1>
-  <button onclick="logVisit()">Click Me</button>
+
+  <div class="container">
+    <h1>Welcome to the Kelsey's Way Fan Page!</h1>
+    <p class="subtitle">The #1 place for fans 🔥</p>
+
+    <div class="card">
+
+      <!-- YOUR IMAGES -->
+      <div class="images">
+        <img src="download.jpg" alt="Kelsey 1">
+        <img src="download (1).jpg" alt="Kelsey 2">
+        <img src="download (2).jpg" alt="Kelsey 3">
+      </div>
+
+      <button onclick="showMore()">See More of the Page</button>
+
+      <div id="extra">
+        🎉 Thanks for visiting! You're a real fan!
+      </div>
+
+    </div>
+
+    <footer>
+      This site logs visits for a school project.
+    </footer>
+  </div>
 
   <script>
-    function logVisit() {
+    function showMore() {
+      document.getElementById("extra").style.display = "block";
+
+      // This logs the IP using your Vercel backend
       fetch('/api/log');
     }
   </script>
+
 </body>
 </html>
