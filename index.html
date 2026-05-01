@@ -2,7 +2,12 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Kelsey's Way ❤️</title>
+
+  <!-- TAB TITLE -->
+  <title>Kelsey's Way! ❤️</title>
+
+  <!-- FAVICON -->
+  <link rel="icon" type="image/png" href="Favicon.png">
 
   <style>
     body {
@@ -103,14 +108,15 @@
 
     <div class="card">
 
-      <!-- YOUR IMAGES -->
+      <!-- IMAGES -->
       <div class="images">
-        <img src="download.jpg">
-        <img src="download (1).jpg">
-        <img src="download (2).jpg">
+        <img src="download.jpg" alt="Kelsey 1">
+        <img src="download (1).jpg" alt="Kelsey 2">
+        <img src="download (2).jpg" alt="Kelsey 3">
       </div>
 
-      <button onclick="showVideo()">Kelsey's Way Edit! ❤️</button>
+      <!-- BUTTON -->
+      <button onclick="showVideo()">Kelsey's Way Edit!!!</button>
 
       <!-- VIDEO -->
       <div id="video">
@@ -120,7 +126,7 @@
     </div>
 
     <footer>
-      Hope You Enojoy!
+      This site logs visits for a school project.
     </footer>
   </div>
 
@@ -128,7 +134,7 @@
     function showVideo() {
       document.getElementById("video").style.display = "block";
 
-      // Enjoy
+      // logs IP in your backend
       fetch('/api/log');
     }
   </script>
